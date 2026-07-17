@@ -3,21 +3,41 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PoC Index</title>
+<title>PoC Catalog</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0a1f38;
-    --bg-grid: rgba(95, 180, 229, 0.07);
-    --surface: #10294a;
-    --surface-hover: #163155;
-    --accent: #5fb4e5;
-    --accent-warm: #ff8a4c;
-    --text-primary: #eaf2fa;
-    --text-secondary: #7e93b0;
-    --border: rgba(95, 180, 229, 0.25);
-    --border-strong: rgba(95, 180, 229, 0.55);
-    --font-display: 'Space Mono', 'Courier New', monospace;
-    --font-body: 'Inter', -apple-system, 'Segoe UI', sans-serif;
+    /* --- Brand green (base: #87b828) --- */
+    --brand-50:  #f6fae9;
+    --brand-100: #eaf3cb;
+    --brand-200: #d3e79a;
+    --brand-300: #b9d869;
+    --brand-400: #a0c93f;
+    --brand-500: #87b828;
+    --brand-600: #6d9720;
+    --brand-700: #56761d;
+    --brand-800: #3f5817;
+    --brand-900: #2a3c10;
+
+    /* --- Neutral (slate) --- */
+    --n-50:  #f8fafc;
+    --n-100: #f1f5f9;
+    --n-200: #e2e8f0;
+    --n-300: #cbd5e1;
+    --n-400: #94a3b8;
+    --n-500: #64748b;
+    --n-600: #475569;
+    --n-700: #334155;
+    --n-800: #1e293b;
+    --n-900: #0f172a;
+
+    --error: #dc2626;
+    --bg-grid: rgba(135, 184, 40, 0.07); /* brand-500 を7%重ねた罫線 */
+
+    --font-display: 'Space Grotesk', 'Noto Sans JP', sans-serif;
+    --font-body: 'Inter', 'Noto Sans JP', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
   }
 
   * { box-sizing: border-box; }
@@ -25,111 +45,96 @@
   html, body {
     margin: 0;
     padding: 0;
-    background-color: var(--bg);
+    background-color: var(--n-50);
     background-image:
       linear-gradient(var(--bg-grid) 1px, transparent 1px),
       linear-gradient(90deg, var(--bg-grid) 1px, transparent 1px);
     background-size: 32px 32px;
-    color: var(--text-primary);
+    color: var(--n-900);
     font-family: var(--font-body);
     min-height: 100vh;
   }
 
   a { color: inherit; text-decoration: none; }
 
-  a:focus-visible,
-  button:focus-visible {
-    outline: 2px solid var(--accent);
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--brand-600);
     outline-offset: 3px;
   }
 
-  .sheet {
+  .wrap {
     max-width: 1040px;
     margin: 0 auto;
-    padding: 28px 24px 80px;
+    padding: 48px 24px 90px;
   }
 
-  /* ---- Title block (blueprint drawing header) ---- */
-  .title-block {
+  /* ---- Header ---- */
+  .top {
     display: flex;
     justify-content: space-between;
-    align-items: stretch;
-    border: 1px solid var(--border-strong);
-    background: var(--surface);
-    margin-bottom: 48px;
-    font-family: var(--font-display);
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    color: var(--text-secondary);
-    text-transform: uppercase;
+    align-items: center;
+    margin-bottom: 56px;
   }
 
-  .title-block__main {
-    padding: 14px 20px;
-    border-right: 1px solid var(--border);
-  }
-
-  .title-block__main .label {
-    color: var(--text-secondary);
-    font-size: 10px;
-  }
-
-  .title-block__main .value {
-    color: var(--text-primary);
-    font-size: 15px;
-    letter-spacing: 0.02em;
-    margin-top: 4px;
-  }
-
-  .title-block__meta {
+  .brand {
     display: flex;
+    align-items: center;
+    gap: 10px;
   }
 
-  .title-block__cell {
-    padding: 14px 18px;
-    border-right: 1px solid var(--border);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    min-width: 76px;
+  .brand .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--brand-500);
+    box-shadow: 0 0 0 4px var(--brand-100);
   }
 
-  .title-block__cell:last-child { border-right: none; }
+  .brand span {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--n-600);
+    letter-spacing: 0.04em;
+  }
 
-  .title-block__cell .value {
-    color: var(--accent);
-    font-size: 14px;
-    margin-top: 4px;
+  .status-pill {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--brand-800);
+    background: var(--brand-100);
+    padding: 5px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--brand-200);
   }
 
   /* ---- Hero ---- */
   .hero {
-    margin-bottom: 56px;
+    margin-bottom: 48px;
   }
 
   .hero .eyebrow {
-    font-family: var(--font-display);
+    font-family: var(--font-mono);
     font-size: 12px;
-    letter-spacing: 0.15em;
-    color: var(--accent);
+    letter-spacing: 0.1em;
+    color: var(--brand-700);
     text-transform: uppercase;
     margin-bottom: 12px;
   }
 
   .hero h1 {
     font-family: var(--font-display);
-    font-size: clamp(28px, 4vw, 40px);
+    font-size: clamp(28px, 4vw, 38px);
     font-weight: 700;
-    line-height: 1.25;
-    margin: 0 0 12px;
-    color: var(--text-primary);
+    line-height: 1.3;
+    margin: 0 0 14px;
+    color: var(--n-900);
   }
 
   .hero p {
     font-size: 15px;
-    color: var(--text-secondary);
+    color: var(--n-600);
     max-width: 520px;
-    line-height: 1.7;
+    line-height: 1.8;
     margin: 0;
   }
 
@@ -137,58 +142,63 @@
   .grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 20px;
+    gap: 18px;
   }
 
   .card {
     position: relative;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    padding: 22px 20px 20px;
-    transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    background: #fff;
+    border: 1px solid var(--n-200);
+    border-radius: 12px;
+    padding: 20px 20px 18px;
+    transition: transform 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease;
     opacity: 0;
-    transform: translateY(10px);
-    animation: rise 0.5s ease forwards;
+    transform: translateY(8px);
+    animation: rise 0.45s ease forwards;
+    overflow: hidden;
+  }
+
+  .card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--brand-500);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.2s ease;
   }
 
   .card:hover,
   .card:focus-within {
-    background: var(--surface-hover);
-    border-color: var(--border-strong);
+    border-color: var(--brand-300);
+    box-shadow: 0 8px 20px -8px rgba(109, 151, 32, 0.35);
     transform: translateY(-3px);
   }
 
-  /* registration marks — corner crosshairs, like blueprint alignment marks */
-  .card::before,
-  .card::after,
-  .card .mark-tr,
-  .card .mark-br {
-    content: "";
-    position: absolute;
-    width: 9px;
-    height: 9px;
-    border: 1px solid var(--border-strong);
-    opacity: 0.7;
+  .card:hover::before,
+  .card:focus-within::before {
+    transform: scaleX(1);
   }
-  .card::before { top: 6px; left: 6px; border-right: none; border-bottom: none; }
-  .card::after  { bottom: 6px; left: 6px; border-right: none; border-top: none; }
-  .card .mark-tr { top: 6px; right: 6px; border-left: none; border-bottom: none; }
-  .card .mark-br { bottom: 6px; right: 6px; border-left: none; border-top: none; }
 
   .card .spec-no {
-    font-family: var(--font-display);
+    display: inline-block;
+    font-family: var(--font-mono);
     font-size: 11px;
-    color: var(--text-secondary);
-    letter-spacing: 0.1em;
-    margin-bottom: 10px;
+    color: var(--brand-700);
+    background: var(--brand-50);
+    padding: 3px 8px;
+    border-radius: 6px;
+    letter-spacing: 0.04em;
+    margin-bottom: 12px;
   }
 
   .card h2 {
     font-family: var(--font-body);
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 600;
     margin: 0 0 18px;
-    color: var(--text-primary);
+    color: var(--n-900);
     word-break: break-word;
   }
 
@@ -196,21 +206,19 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    font-family: var(--font-display);
+    font-family: var(--font-mono);
     font-size: 12px;
-    color: var(--accent);
-    letter-spacing: 0.05em;
+    color: var(--brand-700);
+    letter-spacing: 0.03em;
   }
 
   .card .open-link svg {
     width: 12px;
     height: 12px;
-    transition: transform 0.18s ease;
+    transition: transform 0.16s ease;
   }
 
-  .card:hover .open-link svg {
-    transform: translateX(3px);
-  }
+  .card:hover .open-link svg { transform: translateX(3px); }
 
   @keyframes rise {
     to { opacity: 1; transform: translateY(0); }
@@ -223,55 +231,36 @@
 
   /* ---- State messages ---- */
   .state-msg {
-    font-family: var(--font-display);
+    font-family: var(--font-mono);
     font-size: 13px;
-    color: var(--text-secondary);
-    letter-spacing: 0.04em;
+    color: var(--n-500);
     padding: 20px 0;
   }
 
-  .state-msg.error {
-    color: var(--accent-warm);
-  }
+  .state-msg.error { color: var(--error); }
 
   footer {
     margin-top: 64px;
     padding-top: 20px;
-    border-top: 1px solid var(--border);
-    font-family: var(--font-display);
+    border-top: 1px solid var(--n-200);
+    font-family: var(--font-mono);
     font-size: 11px;
-    color: var(--text-secondary);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    color: var(--n-400);
+    letter-spacing: 0.05em;
   }
 
   @media (max-width: 480px) {
-    .title-block { flex-direction: column; }
-    .title-block__main { border-right: none; border-bottom: 1px solid var(--border); }
-    .title-block__meta { border-top: none; }
+    .top { flex-wrap: wrap; gap: 12px; }
   }
 </style>
 </head>
 <body>
 
-<div class="sheet">
+<div class="wrap">
 
-  <!-- 設計図の「タイトルブロック」を模した見出し -->
-  <div class="title-block">
-    <div class="title-block__main">
-      <div class="label">Project</div>
-      <div class="value">PoC Index</div>
-    </div>
-    <div class="title-block__meta">
-      <div class="title-block__cell">
-        <div class="label">Sheet</div>
-        <div class="value" id="sheet-count">01/01</div>
-      </div>
-      <div class="title-block__cell">
-        <div class="label">Rev</div>
-        <div class="value">A</div>
-      </div>
-    </div>
+  <div class="top">
+    <div class="brand"><span class="dot"></span><span>poc-test</span></div>
+    <div class="status-pill" id="status-pill">— items</div>
   </div>
 
   <div class="hero">
@@ -288,14 +277,12 @@
 </div>
 
 <script>
-  // ↓↓↓ ここを自分のGitHubユーザー名・リポジトリ名に書き換えてください ↓↓↓
   const OWNER = "iwasakiterukazuimpl";
   const REPO = "poc-test";
-  // ↑↑↑ ここを自分のGitHubユーザー名・リポジトリ名に書き換えてください ↑↑↑
 
   const grid = document.getElementById("grid");
   const statusMsg = document.getElementById("status-msg");
-  const sheetCount = document.getElementById("sheet-count");
+  const statusPill = document.getElementById("status-pill");
 
   function openIcon() {
     return '<svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">' +
@@ -308,11 +295,11 @@
 
     if (dirs.length === 0) {
       grid.innerHTML = '<div class="state-msg">まだPoCがありません。poc- で始まるフォルダを追加してください。</div>';
-      sheetCount.textContent = "00/00";
+      statusPill.textContent = "0 items";
       return;
     }
 
-    sheetCount.textContent = String(dirs.length).padStart(2, "0") + "/" + String(dirs.length).padStart(2, "0");
+    statusPill.textContent = dirs.length + " items";
 
     dirs.forEach((dir, i) => {
       const card = document.createElement("a");
@@ -326,7 +313,6 @@
         .replace(/\b\w/g, c => c.toUpperCase());
 
       card.innerHTML =
-        '<span class="mark-tr"></span><span class="mark-br"></span>' +
         '<div class="spec-no">POC-' + String(i + 1).padStart(2, "0") + '</div>' +
         '<h2>' + displayName + '</h2>' +
         '<span class="open-link">Open ' + openIcon() + '</span>';
@@ -351,6 +337,7 @@
       statusMsg.textContent = "一覧の取得に失敗しました（" + err.message + "）";
       grid.innerHTML = "";
       grid.appendChild(statusMsg);
+      statusPill.textContent = "error";
       console.error(err);
     });
 </script>
